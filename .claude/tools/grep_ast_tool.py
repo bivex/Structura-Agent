@@ -72,9 +72,12 @@ def _search_file(
     except OSError as exc:
         return [], [f"{filepath}: {exc}"]
 
+    # .func is an alternate extension for FunC (TON); tree-sitter knows it as .fc
+    tc_filename = filepath[:-5] + ".fc" if filepath.endswith(".func") else filepath
+
     try:
         tc = TreeContext(
-            filepath,
+            tc_filename,
             code,
             color=False,
             verbose=False,
@@ -166,13 +169,18 @@ def _collect_files(paths: list[str], languages: list[str]) -> list[str]:
     """Return all supported source files under *paths*, optionally filtered by language."""
     from grep_ast.parsers import PARSERS
 
+    # Extra extensions not in PARSERS that we handle via aliasing
+    EXTRA_EXTENSIONS = {".func"}  # FunC alternate extension (mapped to .fc in _search_file)
+
     if languages:
         allowed_exts = {
             ext for ext, lang in PARSERS.items()
             if any(lang.startswith(l) for l in languages)
         }
+        if any(l.startswith("func") for l in languages):
+            allowed_exts.add(".func")
     else:
-        allowed_exts = set(PARSERS.keys())
+        allowed_exts = set(PARSERS.keys()) | EXTRA_EXTENSIONS
 
     result: list[str] = []
     for p in paths:
