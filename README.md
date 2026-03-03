@@ -147,6 +147,43 @@ Show the definition of the connect() method in the Kotlin service layer
 3. Then show which methods call the database layer
 ```
 
+**Exploring an internal SDK**
+```
+I'm new to this SDK. Find all public classes in sdk/src/ and give me a brief
+description of what each one does based on its methods and docstrings.
+```
+```
+Show me all the entry points of the SDK — public functions that are not
+called by any other function inside sdk/src/.
+```
+```
+Find every method in the SDK that accepts a callback or a lambda parameter.
+```
+```
+List all interfaces and abstract classes in sdk/core/ — I want to understand
+the extension points before I write a plugin.
+```
+```
+Show all @Deprecated methods still in the SDK so I know what to avoid.
+```
+```
+Find every place in the SDK that throws an exception. Group by exception type.
+```
+```
+Show the full call chain from SdkClient.connect() down to the transport layer.
+```
+```
+I want to mock the SDK in tests. Find all classes that have no final methods
+and are not sealed, starting from sdk/client/.
+```
+```
+Find all Builder classes in the SDK and show their build() method signatures.
+```
+```
+Show every constant and enum defined in sdk/model/ — I need to understand
+what values are valid for each field.
+```
+
 ---
 
 ## Supported languages
