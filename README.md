@@ -93,8 +93,7 @@ Claude Code loads it automatically at session start (no restart needed after clo
 - Uses **tree-sitter** (via `grep-ast`) to parse source files — not plain-text grep
 - Returns structured JSON: file path, node type, code snippet, full AST parent
   scope chain, line range, and search metadata
-- Supports 40+ languages: Python, Go, JavaScript, TypeScript, Kotlin, Java,
-  Rust, Ruby, Elixir, C/C++, and more
+- Supports **150+ file extensions** across 100+ languages (see [Supported languages](#supported-languages))
 
 ### Key frontmatter
 
@@ -103,17 +102,101 @@ Claude Code loads it automatically at session start (no restart needed after clo
 | `model` | `haiku` (fast/cheap)     |
 | `tools` | `Bash, Read, Glob, Grep` |
 
-### Example invocations
+### Example prompts
 
+The agent activates automatically when Claude needs structural code understanding.
+You can also invoke it explicitly:
+
+**Finding entry points**
 ```
 Find all @KafkaListener handlers in src/
 ```
 ```
-Use grep-ast-search to show every class that extends BaseHandler
+Show every @GetMapping and @PostMapping controller method in the project
 ```
 ```
-Search for read_text|write_text in the pathlib module
+Find all functions named handle_* or process_* in src/services/
 ```
+
+**Exploring class hierarchies**
+```
+Show every class that extends BaseRepository in src/
+```
+```
+Find all abstract methods in the domain layer
+```
+```
+List all dataclasses decorated with @dataclass in models/
+```
+
+**Cross-language search**
+```
+Search for all async def functions in the Python codebase
+```
+```
+Find every TODO or FIXME comment across all Go files in pkg/
+```
+```
+Show the definition of the connect() method in the Kotlin service layer
+```
+
+**Iterative exploration** (how the agent thinks)
+```
+1. First find class OrderService
+2. Then list all public methods inside it
+3. Then show which methods call the database layer
+```
+
+---
+
+## Supported languages
+
+`grep-ast` uses **tree-sitter** grammar packs and recognises the following
+languages out of the box:
+
+| Language | Extensions |
+|---|---|
+| Python | `.py` |
+| JavaScript | `.js`, `.mjs`, `.jsx` |
+| TypeScript | `.ts`, `.tsx` |
+| Go | `.go`, `go.mod`, `go.sum` |
+| Rust | `.rs` |
+| Java | `.java` |
+| Kotlin | `.kt`, `.kts` |
+| C / C++ | `.c`, `.h`, `.cpp`, `.cc`, `.cxx`, `.hpp`, `.h++`, `.hxx` |
+| C# | `.cs` |
+| Ruby | `.rb` |
+| PHP | `.php` |
+| Swift | `.swift` |
+| Scala | `.scala`, `.sc` |
+| Elixir | `.ex`, `.exs` |
+| Erlang | `.erl`, `.hrl` |
+| Haskell | `.hs` |
+| Lua | `.lua` |
+| Dart | `.dart` |
+| Bash / Zsh | `.sh`, `.bash`, `.zsh` |
+| PowerShell | `.ps1`, `.psm1` |
+| SQL | `.sql` |
+| HTML | `.html`, `.htm` |
+| CSS / SCSS | `.css`, `.scss` |
+| Vue / Svelte | `.vue`, `.svelte` |
+| JSON / TOML / YAML | `.json`, `.toml` |
+| Markdown | `.md`, `.markdown` |
+| Dockerfile | `Dockerfile` |
+| Terraform / HCL | `.tf`, `.hcl`, `.tfvars` |
+| Protobuf | `.proto` |
+| Solidity | `.sol` |
+| Zig | `.zig` |
+| OCaml | `.ml`, `.mli` |
+| Clojure | `.clj`, `.cljs`, `.cljc`, `.edn` |
+| Nix | `.nix` |
+| R | `.r`, `.R` |
+| Julia | `.jl` |
+| CUDA | `.cu`, `.cuh` |
+| Makefile / CMake | `Makefile`, `CMakeLists.txt` |
+| … and more | Ada, Agda, Cairo, Elm, Fortran, Gleam, Groovy, Odin, Pascal, Perl, Racket, Scheme, VHDL, WebGPU (WGSL), and others |
+
+Run `python3 -c "from grep_ast.parsers import PARSERS; [print(ext, lang) for ext, lang in sorted(PARSERS.items())]"` to see the full list on your installation.
 
 ---
 
