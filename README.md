@@ -151,52 +151,215 @@ Show the definition of the connect() method in the Kotlin service layer
 
 ## Supported languages
 
-`grep-ast` uses **tree-sitter** grammar packs and recognises the following
-languages out of the box:
+`grep-ast` uses **tree-sitter** grammar packs. Full list as of v0.9.0 (150+ extensions, 100+ languages):
+
+### Systems & compiled
 
 | Language | Extensions |
 |---|---|
-| Python | `.py` |
-| JavaScript | `.js`, `.mjs`, `.jsx` |
-| TypeScript | `.ts`, `.tsx` |
-| Go | `.go`, `go.mod`, `go.sum` |
+| C | `.c`, `.h` |
+| C++ | `.cc`, `.cpp`, `.cxx`, `.h++`, `.hpp`, `.hxx` |
+| C# | `.cs` |
 | Rust | `.rs` |
+| Go | `.go` |
+| Zig | `.zig` |
+| D | `.d` |
+| Fortran | `.f`, `.f03`, `.f08`, `.f90`, `.f95` |
+| Ada | `.adb`, `.ads` |
+| CUDA | `.cu`, `.cuh` |
+| ISPC | `.ispc` |
+| Objective-C | `.mm` |
+| Arduino | `.ino` |
+
+### JVM & Android
+
+| Language | Extensions |
+|---|---|
 | Java | `.java` |
 | Kotlin | `.kt`, `.kts` |
-| C / C++ | `.c`, `.h`, `.cpp`, `.cc`, `.cxx`, `.hpp`, `.h++`, `.hxx` |
-| C# | `.cs` |
-| Ruby | `.rb` |
-| PHP | `.php` |
-| Swift | `.swift` |
 | Scala | `.scala`, `.sc` |
-| Elixir | `.ex`, `.exs` |
-| Erlang | `.erl`, `.hrl` |
-| Haskell | `.hs` |
-| Lua | `.lua` |
-| Dart | `.dart` |
-| Bash / Zsh | `.sh`, `.bash`, `.zsh` |
-| PowerShell | `.ps1`, `.psm1` |
-| SQL | `.sql` |
+| Groovy | `.groovy` |
+| Smali (Android bytecode) | `.smali` |
+
+### Web & scripting
+
+| Language | Extensions |
+|---|---|
+| JavaScript | `.js`, `.mjs`, `.jsx` |
+| TypeScript | `.ts`, `.tsx` |
 | HTML | `.html`, `.htm` |
-| CSS / SCSS | `.css`, `.scss` |
-| Vue / Svelte | `.vue`, `.svelte` |
-| JSON / TOML / YAML | `.json`, `.toml` |
-| Markdown | `.md`, `.markdown` |
-| Dockerfile | `Dockerfile` |
-| Terraform / HCL | `.tf`, `.hcl`, `.tfvars` |
-| Protobuf | `.proto` |
-| Solidity | `.sol` |
-| Zig | `.zig` |
-| OCaml | `.ml`, `.mli` |
+| CSS | `.css` |
+| SCSS | `.scss` |
+| Vue | `.vue` |
+| Svelte | `.svelte` |
+| Astro | `.astro` |
+| Twig | `.twig` |
+| PHP | `.php` |
+| Ruby | `.rb` |
+| Python | `.py` |
+| Lua | `.lua`, `.luau` |
+| Luadoc | `.luadoc` |
+| Luap (Lua patterns) | `.luap` |
+| Perl | `.pl`, `.pm` |
+| Tcl | `.tcl` |
+| QML | `.qml` |
+| qmldir | `qmldir` |
+
+### Functional
+
+| Language | Extensions |
+|---|---|
+| Haskell | `.hs` |
+| OCaml | `.ml` |
+| OCaml interface | `.mli` |
+| Erlang | `.erl`, `.hrl` |
+| Elixir | `.ex`, `.exs` |
+| HEEx (Elixir templates) | `.heex` |
+| Elm | `.elm` |
 | Clojure | `.clj`, `.cljs`, `.cljc`, `.edn` |
+| Racket | `.rkt` |
+| Scheme | `.scm`, `.ss` |
+| Common Lisp | `.cl`, `.lisp` |
+| Emacs Lisp | `.el` |
+| Fennel | `.fnl` |
+| Agda | `.agda` |
+| PureScript | `.purs` |
+| Haxe | `.hx` |
+
+### Mobile & cross-platform
+
+| Language | Extensions |
+|---|---|
+| Swift | `.swift` |
+| Dart | `.dart` |
+| GDScript (Godot) | `.gd` |
+
+### Infrastructure & config
+
+| Language | Extensions |
+|---|---|
+| Terraform / HCL | `.tf`, `.hcl`, `.tfvars` |
+| Dockerfile | `Dockerfile` |
+| Makefile | `Makefile`, `.mk` |
+| CMake | `CMakeLists.txt`, `.cmake` |
+| Meson | `meson.build` |
+| Ninja | `.ninja` |
+| Starlark / Bazel | `.bzl`, `BUILD`, `WORKSPACE` |
+| Kconfig | `Kconfig` |
 | Nix | `.nix` |
+| TOML | `.toml` |
+| JSON | `.json` |
+| JSON5 / Jsonnet | `.jsonnet`, `.libsonnet` |
+| YAML (via tree-sitter) | — |
+| XML / XSL / SVG | `.xml`, `.xsl`, `.svg` |
+| Properties | `.properties` |
+| Prisma | `.prisma` |
+| Bicep | `.bicep` |
+| KDL | `.kdl` |
+| RON | `.ron` |
+
+### Data & query
+
+| Language | Extensions |
+|---|---|
+| SQL | `.sql` |
+| SPARQL | `.rq` |
+| CSV / TSV / PSV | `.csv`, `.tsv`, `.psv` |
+| Beancount | `.bean` |
+| BibTeX | `.bib` |
+| PGN (chess) | `.pgn` |
+
+### Shells & scripting tools
+
+| Language | Extensions |
+|---|---|
+| Bash / Zsh / Shell | `.sh`, `.bash`, `.zsh` |
+| Fish | `.fish` |
+| PowerShell | `.ps1`, `.psm1` |
+| Awk | — |
+
+### Docs & markup
+
+| Language | Extensions |
+|---|---|
+| Markdown | `.md`, `.markdown` |
+| reStructuredText | `.rst` |
+| LaTeX | `.tex`, `.cls`, `.sty` |
+| Org-mode | `.org` |
+| Typst | `.typ` |
+| Mermaid | `.mermaid` |
+
+### Hardware & shaders
+
+| Language | Extensions |
+|---|---|
+| Verilog / SystemVerilog | `.v`, `.sv` |
+| VHDL | `.vhd`, `.vhdl` |
+| GLSL | `.glsl`, `.frag`, `.vert` |
+| HLSL | `.hlsl` |
+| WGSL (WebGPU) | `.wgsl` |
+| Firrtl | `.fir` |
+| Tablegen (LLVM) | `.td` |
+| LLVM IR | `.ll` |
+
+### Blockchain & smart contracts
+
+| Language | Extensions |
+|---|---|
+| Solidity | `.sol` |
+| Cairo (StarkNet) | `.cairo` |
+| Clarity (Stacks) | `.clar` |
+| Func (TON) | `.fc` |
+| Move | — |
+
+### Other / niche
+
+| Language | Extensions |
+|---|---|
 | R | `.r`, `.R` |
 | Julia | `.jl` |
-| CUDA | `.cu`, `.cuh` |
-| Makefile / CMake | `Makefile`, `CMakeLists.txt` |
-| … and more | Ada, Agda, Cairo, Elm, Fortran, Gleam, Groovy, Odin, Pascal, Perl, Racket, Scheme, VHDL, WebGPU (WGSL), and others |
+| MATLAB | `.m`, `.mat` |
+| Protobuf | `.proto` |
+| Thrift | `.thrift` |
+| Cap'n Proto | `.capnp` |
+| Smithy | `.smithy` |
+| Odin | `.odin` |
+| Gleam | `.gleam` |
+| Pony | `.pony` |
+| Janet | `.janet` |
+| Hare | `.ha` |
+| Squirrel | `.nut` |
+| Magik | `.magik` |
+| Pascal | `.pas`, `.pp` |
+| ActionScript | `.as` |
+| Hack | `.hack` |
+| Bitbake (Yocto) | `.bb`, `.bbappend`, `.bbclass` |
+| Starlark | `.bzl`, `BUILD`, `WORKSPACE` |
+| Assembly | `.asm`, `.s` |
+| Git files | `.gitignore`, `.gitattributes`, `.gitcommit` |
+| Python manifest | `MANIFEST.in`, `requirements.txt` |
+| Go modules | `go.mod`, `go.sum` |
+| Vim script | `.vim`, `.vimrc` |
+| Readline | `.inputrc` |
+| Chatito | `.chatito` |
+| Linker script | `.ld` |
+| udev rules | `.rules` |
+| Hyprland config | `.hypr` |
+| GStreamer launch | `.launch` |
+| Uxntal | `.tal` |
+| Re2c | `.re2c` |
+| NQC | `.nqc` |
+| XCompose | `.XCompose` |
+| DTD | `.dtd` |
+| CPON | `.cpon` |
+| Gettext PO | `.po`, `.pot` |
+| Ungrammar | `.ungram` |
+| Yuck (EWW) | `.yuck` |
 
-Run `python3 -c "from grep_ast.parsers import PARSERS; [print(ext, lang) for ext, lang in sorted(PARSERS.items())]"` to see the full list on your installation.
+Run the following to see the live list on your installation:
+```bash
+python3 -c "from grep_ast.parsers import PARSERS; [print(f'{ext:25} {lang}') for ext, lang in sorted(PARSERS.items())]"
+```
 
 ---
 
