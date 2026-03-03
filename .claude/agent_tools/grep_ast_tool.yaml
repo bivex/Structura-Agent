@@ -1,0 +1,72 @@
+tool:
+  name: "grep_ast_search"
+  description: >
+    Search for structural code elements (classes, methods, annotations)
+    using AST. Returns code with syntactic-tree context.
+
+  input_schema:
+    type: object
+    properties:
+      pattern:
+        type: string
+        description: "Regex or text pattern to search for"
+        example: "def check_requirement|@GetMapping|@KafkaListener"
+      paths:
+        type: array
+        items: { type: string }
+        description: "Files or directories to search"
+        default: ["./"]
+      languages:
+        type: array
+        items:
+          type: string
+          enum: [python, go, kotlin, ruby, elixir, php]
+        description: "Optional language filter"
+      context_depth:
+        type: integer
+        minimum: 1
+        maximum: 5
+        default: 2
+        description: "AST context depth (parent/child nodes)"
+    required: ["pattern"]
+
+  output_format:
+    type: object
+    properties:
+      matches:
+        type: array
+        items:
+          type: object
+          properties:
+            file:         { type: string }
+            node_type:    { type: string, enum: [function, class, method, annotation, call] }
+            code_snippet: { type: string }
+            ast_context:  { type: object }   # parent nodes in the tree
+            line_range:
+              type: object
+              properties:
+                start: { type: integer }
+                end:   { type: integer }
+      search_metadata:
+        type: object
+        properties:
+          files_scanned: { type: integer }
+          parse_errors:  { type: array }
+
+  execution:
+    command: "grep-ast"
+    args:
+      - "{pattern}"
+      - "{paths}"
+      - "--languages={languages}"
+      - "--context={context_depth}"
+      - "--output=json"   # critical for LLM parsing
+    timeout_seconds: 30
+    max_results: 50
+
+  agent_usage_guidelines:
+    - "Use for pinpointing entry points: handlers, controllers, Kafka producer/consumer"
+    - "Pattern can be regex, but remember: search is over the AST, not raw text"
+    - "If results are empty, simplify the pattern or widen paths"
+    - "For iterative exploration: first find the class, then narrow to methods inside it"
+    - "Always use --output=json — the LLM needs structured output"
