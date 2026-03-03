@@ -1,11 +1,11 @@
 ---
-name: grep-ast-search
+name: structura-search
 description: >
-  AST-aware code search agent. Use when the user needs to find structural
+  AST-aware structural code search. Use when the user needs to find structural
   elements in a codebase: functions, classes, methods, annotations, Kafka
-  handlers, REST controllers, or any pattern that benefits from syntax-tree
-  context rather than plain-text grep. Delegates to the grep-ast CLI and
-  returns structured JSON output with AST parent/child context.
+  handlers, REST controllers, SDK entry points, or any pattern that benefits
+  from syntax-tree context rather than plain-text grep. Uses tree-sitter via
+  grep-ast and returns structured JSON with full AST parent/child scope chain.
 tools: Bash, Read, Glob, Grep
 model: haiku
 ---

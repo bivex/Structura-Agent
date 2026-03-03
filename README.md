@@ -74,7 +74,7 @@ automatically when you run `claude` from this directory.
 ```
 .claude/
   agents/
-    grep-ast-search.md      # Claude Code subagent definition
+    structura-search.md     # Claude Code subagent definition
   agent_tools/
     grep_ast_tool.yaml      # Tool spec: input/output schema, usage guidelines
   tools/
@@ -83,9 +83,9 @@ automatically when you run `claude` from this directory.
 
 ---
 
-## Included agent: `grep-ast-search`
+## Included agent: `structura-search`
 
-Defined in [.claude/agents/grep-ast-search.md](.claude/agents/grep-ast-search.md).  
+Defined in [.claude/agents/structura-search.md](.claude/agents/structura-search.md).  
 Claude Code loads it automatically at session start (no restart needed after clone).
 
 ### What it does
@@ -105,7 +105,11 @@ Claude Code loads it automatically at session start (no restart needed after clo
 ### Example prompts
 
 The agent activates automatically when Claude needs structural code understanding.
-You can also invoke it explicitly:
+You can also invoke it explicitly by name:
+
+```
+Use structura-search to find all @KafkaListener handlers in src/
+```
 
 **Finding entry points**
 ```
